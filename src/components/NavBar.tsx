@@ -27,9 +27,6 @@ const NavBar = () => {
 						<Link to='leaderboard' className='nav-link'>
 							Leaderboard
 						</Link>
-						<Link to='game' className='nav-link'>
-							Game
-						</Link>
 					</div>
 				</div>
 			</div>

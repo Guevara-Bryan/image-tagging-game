@@ -1,22 +1,12 @@
 import React from 'react';
-import snowMap from '../images/snow-map.jpeg';
 import Pointer from './Pointer';
 
-import { Target, isCircleCollision } from '../collisions';
+import { Target, isCircleCollision, GameSettingsContext, GameSettings } from '../utils';
 
 const Game = () => {
 	const pointerRef = React.useRef<HTMLDivElement>(null);
 	const pointerRadius = 37.5; // pixels
-	const targets: Target[] = [
-		{
-			name: 'Odd Waldo',
-			coordinates: { x: 951, y: 1262 },
-		},
-		{
-			name: 'Waldo',
-			coordinates: { x: 2567, y: 1458 },
-		},
-	];
+	const currentSettings: GameSettings = React.useContext<GameSettings>(GameSettingsContext);
 
 	const onMouseMove = (e: MouseEvent): void => {
 		if (pointerRef.current === null) return;
@@ -25,7 +15,8 @@ const Game = () => {
 	};
 
 	const pointerOnClick = (e: React.MouseEvent): void => {
-		for (const target of targets) {
+		console.log([e.pageX, e.pageY]);
+		for (const target of currentSettings.level.targets) {
 			if (
 				isCircleCollision(
 					{
@@ -71,7 +62,7 @@ const Game = () => {
 			</div>
 			<div className='container-fluid p-0'>
 				<Pointer ref={pointerRef} onclick={pointerOnClick} />
-				<img src={snowMap} alt='' />
+				<img src={currentSettings.level.imageSrc} alt='' />
 			</div>
 		</div>
 	);
