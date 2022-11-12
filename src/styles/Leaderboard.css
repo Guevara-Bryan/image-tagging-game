@@ -1,0 +1,24 @@
+.players-container {
+  width: 50%;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  row-gap: 3vh;
+}
+
+.player-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border: 2px solid purple;
+  padding: 10px;
+  border-radius: 10px;
+
+  font-size: 16pt;
+}

@@ -7,7 +7,7 @@ const Home = () => {
 	const levelsManager: GameLevelsManager = React.useContext<GameLevelsManager>(GameSettingsContext);
 
 	return (
-		<div className='container-fluid p-0'>
+		<div className='container-fluid p-0 home-container'>
 			<div className='d-flex h1 align-center justify-content-center align-items-center py-2'>
 				Select Your Level
 			</div>

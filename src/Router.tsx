@@ -17,7 +17,6 @@ const Router = () => {
 					<Routes>
 						<Route path='/' element={<Frame />}>
 							<Route index element={<Home />} />
-							{/* TODO: Add leaderboard page */}
 							<Route path='leaderboard' element={<Leaderboard />} />
 							<Route path='game:stringLevelId' element={<Game />} />
 						</Route>
