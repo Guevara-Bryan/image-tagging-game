@@ -44,6 +44,7 @@ const GameSettingsContext = React.createContext<GameLevelsManager>({} as GameLev
 const POINTER_RADIUS = 30; // pixels
 
 const useLevels = (): GameLevelsManager => {
+	// TODO: Add firebase functionality to get the levels
 	const [levels, setLevels] = React.useState<Level[]>([
 		{
 			id: 1,
