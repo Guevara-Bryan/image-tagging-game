@@ -6,25 +6,19 @@ import Home from './components/Home';
 import Leaderboard from './components/Leaderboard';
 import Game from './components/Game';
 
-import { GameSettingsContext, Level, EMPTY_LEVEL } from './utils';
+import { GameSettingsContext, useLevels } from './utils';
 
 const Router = () => {
-	const [levelSettings, setLevelSettings] = React.useState<Level>(EMPTY_LEVEL);
-
+	const levelsManager = useLevels();
 	return (
 		<div className='container-fluid p-0'>
-			<GameSettingsContext.Provider
-				value={{
-					level: levelSettings,
-					setter: setLevelSettings,
-				}}
-			>
+			<GameSettingsContext.Provider value={levelsManager}>
 				<BrowserRouter>
 					<Routes>
 						<Route path='/' element={<Frame />}>
 							<Route index element={<Home />} />
 							<Route path='leaderboard' element={<Leaderboard />} />
-							<Route path='game' element={<Game />} />
+							<Route path='game:stringLevelId' element={<Game />} />
 						</Route>
 					</Routes>
 				</BrowserRouter>

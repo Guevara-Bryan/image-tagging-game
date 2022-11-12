@@ -6,7 +6,7 @@ const NavBar = () => {
 		<nav className='navbar navbar-expand-lg navbar-dark bg-dark px-lg-5 fixed-top'>
 			<div className='container-fluid'>
 				<Link to='/' className='navbar-brand'>
-					Image Game
+					Where's Waldo
 				</Link>
 				<button
 					className='navbar-toggler'

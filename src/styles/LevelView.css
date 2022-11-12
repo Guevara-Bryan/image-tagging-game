@@ -1,0 +1,47 @@
+.level-view {
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+  border-radius: 5%;
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+}
+
+.level__image-container {
+  width: 100%;
+  height: 100%;
+}
+
+.level-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 3%;
+}
+
+.level-name{
+  font-size: 1.65rem;
+  width: 100%;
+  text-align: center;
+}
+
+.levels-container{
+  width: 100%;
+  height: 100%;
+  padding: 2% 2% 6% 2%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  row-gap: 5%;
+  column-gap: 3%;
+}
+
+.level-view > button{
+  font-size: 1.2rem;
+}
+
+@media (max-width: 750px){
+  .levels-container{
+    grid-template-columns: 1fr;
+  }
+}

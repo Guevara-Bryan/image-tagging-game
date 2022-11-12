@@ -1,38 +1,29 @@
 import React from 'react';
 import Pointer from './Pointer';
+import { useParams } from 'react-router-dom';
 
-import { Target, isCircleCollision, GameSettingsContext, GameSettings } from '../utils';
+import { GameSettingsContext, GameLevelsManager, POINTER_RADIUS } from '../utils';
 
 const Game = () => {
 	const pointerRef = React.useRef<HTMLDivElement>(null);
-	const pointerRadius = 37.5; // pixels
-	const currentSettings: GameSettings = React.useContext<GameSettings>(GameSettingsContext);
+	const currentSettings: GameLevelsManager =
+		React.useContext<GameLevelsManager>(GameSettingsContext);
+	const [showCharacterList, setShowCharacterList] = React.useState<boolean>(false);
+
+	type paramsType = {
+		stringLevelId: string;
+	};
+	const { stringLevelId } = useParams<paramsType>();
+	let levelId: number = 0;
+	if (stringLevelId === undefined) {
+		throw Error('Level Id not specified');
+	}
+	levelId = parseInt(stringLevelId.substring(1));
 
 	const onMouseMove = (e: MouseEvent): void => {
 		if (pointerRef.current === null) return;
-		pointerRef.current.style.left = `${e.pageX - window.scrollX - pointerRadius}px`;
-		pointerRef.current.style.top = `${e.pageY - window.scrollY - pointerRadius}px`;
-	};
-
-	const pointerOnClick = (e: React.MouseEvent): void => {
-		console.log([e.pageX, e.pageY]);
-		for (const target of currentSettings.level.targets) {
-			if (
-				isCircleCollision(
-					{
-						center: target.coordinates,
-						radius: pointerRadius,
-					},
-					{
-						center: { x: e.pageX, y: e.pageY },
-						radius: pointerRadius,
-					}
-				)
-			) {
-				alert(`Congrats!! You found ${target.name}`);
-				break;
-			}
-		}
+		pointerRef.current.style.left = `${e.pageX - window.scrollX - POINTER_RADIUS}px`;
+		pointerRef.current.style.top = `${e.pageY - window.scrollY - POINTER_RADIUS}px`;
 	};
 
 	React.useEffect(() => {
@@ -61,8 +52,13 @@ const Game = () => {
 				</div>
 			</div>
 			<div className='container-fluid p-0'>
-				<Pointer ref={pointerRef} onclick={pointerOnClick} />
-				<img src={currentSettings.level.imageSrc} alt='' />
+				<Pointer
+					ref={pointerRef}
+					visible={showCharacterList}
+					setVisibility={setShowCharacterList}
+					currentLevel={levelId}
+				/>
+				<img src={currentSettings.getLevel(levelId).imageSrc} alt='' />
 			</div>
 		</div>
 	);
