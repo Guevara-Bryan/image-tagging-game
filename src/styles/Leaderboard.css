@@ -9,6 +9,8 @@
   justify-content: center;
 
   row-gap: 3vh;
+
+  margin-top: 3%;
 }
 
 .player-entry {
@@ -21,4 +23,12 @@
   border-radius: 10px;
 
   font-size: 16pt;
+}
+
+.leaderboard-container {
+  background-color: rgb(255, 221, 0);
+  display: flex;
+  min-height: 94vh;
+  flex-direction: column;
+  align-items: center;
 }

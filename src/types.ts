@@ -40,4 +40,26 @@ interface GameSettings {
 	timer?: Timer;
 }
 
-export type { Point, Circle, Target, Level, Timer, GameLevelsManager, GameSettings };
+interface Time {
+	hours: number;
+	minutes: number;
+	seconds: number;
+}
+
+interface playerEntry {
+	id: string;
+	name: string;
+	time: number;
+}
+
+export type {
+	Point,
+	Circle,
+	Target,
+	Level,
+	Timer,
+	GameLevelsManager,
+	GameSettings,
+	Time,
+	playerEntry,
+};

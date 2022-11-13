@@ -2,7 +2,7 @@ import React from 'react';
 import beachMap from './images/beach-map.jpeg';
 import snowMap from './images/snow-map.jpeg';
 
-import { Level, Timer, GameLevelsManager, GameSettings } from './types';
+import { Level, Timer, GameLevelsManager, GameSettings, Time } from './types';
 
 const GameSettingsContext = React.createContext<GameSettings>({});
 
@@ -120,6 +120,14 @@ const useLevels = (): GameLevelsManager => {
 	};
 };
 
+const secondsToTime = (seconds: number): Time => {
+	return {
+		seconds: seconds % 60,
+		minutes: Math.floor(seconds / 60) % 60,
+		hours: Math.floor((Math.floor(seconds / 60) - (Math.floor(seconds / 60) % 60)) / 60),
+	};
+};
+
 const useTimer = (): Timer => {
 	const [seconds, setSeconds] = React.useState<number>(0);
 	let timerId: NodeJS.Timer | null = null;
@@ -148,13 +156,11 @@ const useTimer = (): Timer => {
 	};
 
 	return {
-		seconds: seconds % 60,
-		minutes: Math.floor(seconds / 60) % 60,
-		hours: Math.floor((Math.floor(seconds / 60) - (Math.floor(seconds / 60) % 60)) / 60),
+		...secondsToTime(seconds),
 		startTimer,
 		stopTimer,
 		resetTimer,
 	};
 };
 
-export { GameSettingsContext, POINTER_RADIUS, useLevels, useTimer };
+export { GameSettingsContext, POINTER_RADIUS, useLevels, useTimer, secondsToTime };
