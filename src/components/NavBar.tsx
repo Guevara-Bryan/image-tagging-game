@@ -1,11 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { GameSettings } from '../types';
+import { GameSettingsContext } from '../utils';
 
 const NavBar = () => {
+	const currentSettings = React.useContext<GameSettings>(GameSettingsContext);
+
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-dark px-lg-5 fixed-top'>
 			<div className='container-fluid'>
-				<Link to='/' className='navbar-brand'>
+				<Link
+					to='/'
+					className='navbar-brand'
+					onClick={() => {
+						currentSettings.timer?.stopTimer();
+					}}
+				>
 					Where's Waldo
 				</Link>
 				<button
@@ -21,10 +31,22 @@ const NavBar = () => {
 				</button>
 				<div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
 					<div className='navbar-nav'>
-						<Link to='/' className='nav-link'>
+						<Link
+							to='/'
+							className='nav-link'
+							onClick={() => {
+								currentSettings.timer?.stopTimer();
+							}}
+						>
 							Home
 						</Link>
-						<Link to='leaderboard' className='nav-link'>
+						<Link
+							to='leaderboard'
+							className='nav-link'
+							onClick={() => {
+								currentSettings.timer?.stopTimer();
+							}}
+						>
 							Leaderboard
 						</Link>
 					</div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Level } from '../utils';
+import { Level } from '../types';
 import { useNavigate } from 'react-router-dom';
 
 import '../styles/LevelView.css';

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Level, GameSettingsContext, GameLevelsManager } from '../utils';
+import { Level, GameSettings} from '../types';
+import { GameSettingsContext } from '../utils';
 
 import LevelView from './LevelView';
 
 const Home = () => {
-	const levelsManager: GameLevelsManager = React.useContext<GameLevelsManager>(GameSettingsContext);
+	const currentSettings: GameSettings = React.useContext<GameSettings>(GameSettingsContext);
 
 	return (
 		<div className='container-fluid p-0 home-container'>
@@ -12,7 +13,7 @@ const Home = () => {
 				Select Your Level
 			</div>
 			<div className='levels-container'>
-				{levelsManager.getAllLevels().map((level: Level) => {
+				{currentSettings.levelsManager?.getAllLevels().map((level: Level) => {
 					return <LevelView key={level.id} level={level} />;
 				})}
 			</div>

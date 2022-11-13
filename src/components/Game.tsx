@@ -2,12 +2,13 @@ import React from 'react';
 import Pointer from './Pointer';
 import { useParams } from 'react-router-dom';
 
-import { GameSettingsContext, GameLevelsManager, POINTER_RADIUS } from '../utils';
+import { GameSettings } from '../types';
+
+import { GameSettingsContext, POINTER_RADIUS } from '../utils';
 
 const Game = () => {
 	const pointerRef = React.useRef<HTMLDivElement>(null);
-	const currentSettings: GameLevelsManager =
-		React.useContext<GameLevelsManager>(GameSettingsContext);
+	const currentSettings: GameSettings = React.useContext<GameSettings>(GameSettingsContext);
 	const [showCharacterList, setShowCharacterList] = React.useState<boolean>(false);
 
 	type paramsType = {
@@ -28,7 +29,10 @@ const Game = () => {
 
 	React.useEffect(() => {
 		window.addEventListener('mousemove', onMouseMove);
+		currentSettings.timer?.resetTimer();
+		currentSettings.timer?.startTimer();
 		return () => {
+			currentSettings.timer?.stopTimer();
 			window.removeEventListener('mousedown', onMouseMove);
 		};
 	}, []);
@@ -48,8 +52,11 @@ const Game = () => {
           p-2'
 					style={{ borderRadius: '0 0 10px 10px', cursor: 'default' }}
 				>
-					{/* TODO: Add timer functionality */}
-					00:00:00
+					{`${currentSettings.timer?.hours}`.padStart(2, '0') +
+						' : ' +
+						`${currentSettings.timer?.minutes}`.padStart(2, '0') +
+						' : ' +
+						`${currentSettings.timer?.seconds}`.padStart(2, '0')}
 				</div>
 			</div>
 			<div className='container-fluid p-0'>
@@ -59,7 +66,7 @@ const Game = () => {
 					setVisibility={setShowCharacterList}
 					currentLevel={levelId}
 				/>
-				<img src={currentSettings.getLevel(levelId).imageSrc} alt='' />
+				<img src={currentSettings.levelsManager?.getLevel(levelId).imageSrc} alt='' />
 			</div>
 		</div>
 	);

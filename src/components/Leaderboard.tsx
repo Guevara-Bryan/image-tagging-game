@@ -3,7 +3,7 @@ import React from 'react';
 import '../styles/Leaderboard.css';
 
 const Leaderboard = () => {
-  // TODO: Add firebase functionality
+	// TODO: Add firebase functionality
 	const players: { name: string; time: string }[] = [
 		{ name: 'John Doe', time: '00:05:31' },
 		{ name: 'John Doe', time: '00:05:31' },
@@ -24,9 +24,9 @@ const Leaderboard = () => {
 		<div className='container-fluid p-0 d-flex justify-content-center flex-column align-items-center bg-warning'>
 			<div className='h1'>Leaderboard</div>
 			<div className='players-container bg-dark'>
-				{players.map((player) => {
+				{players.map((player, index) => {
 					return (
-						<div className='player-entry text-bg-dark'>
+						<div key={index} className='player-entry text-bg-dark'>
 							<div>{player.name}</div>
 							<div>{player.time}</div>
 						</div>

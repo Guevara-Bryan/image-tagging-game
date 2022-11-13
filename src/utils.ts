@@ -1,45 +1,10 @@
 import React from 'react';
-
 import beachMap from './images/beach-map.jpeg';
 import snowMap from './images/snow-map.jpeg';
 
-interface Point {
-	x: number;
-	y: number;
-}
+import { Level, Timer, GameLevelsManager, GameSettings } from './types';
 
-interface Circle {
-	center: Point;
-	radius: number;
-}
-
-interface Target {
-	name: string;
-	coordinates: Point;
-}
-
-interface Level {
-	id: number;
-	name: string;
-	imageSrc: string;
-	targets: Target[];
-}
-
-interface GameLevelsManager {
-	getLevel: (levelId: number) => Level;
-	getAllLevels: () => Level[];
-	removeCharacterFromLevel: (levelId: number, charName: string) => void;
-}
-
-const getDistance2D = (p1: Point, p2: Point): number => {
-	return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
-};
-
-const isCircleCollision = (circle1: Circle, circle2: Circle): boolean => {
-	return getDistance2D(circle1.center, circle2.center) < circle1.radius + circle2.radius;
-};
-
-const GameSettingsContext = React.createContext<GameLevelsManager>({} as GameLevelsManager);
+const GameSettingsContext = React.createContext<GameSettings>({});
 
 const POINTER_RADIUS = 30; // pixels
 
@@ -155,5 +120,41 @@ const useLevels = (): GameLevelsManager => {
 	};
 };
 
-export { getDistance2D, isCircleCollision, GameSettingsContext, POINTER_RADIUS, useLevels };
-export type { Point, Circle, Target, Level, GameLevelsManager };
+const useTimer = (): Timer => {
+	const [seconds, setSeconds] = React.useState<number>(0);
+	let timerId: NodeJS.Timer | null = null;
+
+	const startTimer = () => {
+		if (timerId !== null) {
+			return;
+		}
+
+		timerId = setInterval(() => {
+			setSeconds((prev) => prev + 1);
+		}, 1000);
+	};
+
+	const stopTimer = () => {
+		if (timerId === null) {
+			return;
+		}
+		clearInterval(timerId);
+		timerId = null;
+	};
+
+	const resetTimer = () => {
+		stopTimer();
+		setSeconds(0);
+	};
+
+	return {
+		seconds: seconds % 60,
+		minutes: Math.floor(seconds / 60) % 60,
+		hours: Math.floor((Math.floor(seconds / 60) - (Math.floor(seconds / 60) % 60)) / 60),
+		startTimer,
+		stopTimer,
+		resetTimer,
+	};
+};
+
+export { GameSettingsContext, POINTER_RADIUS, useLevels, useTimer };

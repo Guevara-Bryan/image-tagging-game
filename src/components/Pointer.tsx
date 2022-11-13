@@ -1,15 +1,11 @@
 import React from 'react';
 import pointer from '../images/crosshair.png';
 
-import {
-	GameSettingsContext,
-	GameLevelsManager,
-	Target,
-	Point,
-	isCircleCollision,
-	Circle,
-	POINTER_RADIUS,
-} from '../utils';
+import { GameSettings, Point, Circle, Target } from '../types';
+
+import { GameSettingsContext, POINTER_RADIUS } from '../utils';
+
+import { isCircleCollision } from '../collisions/collisions';
 
 interface PointerProps {
 	visible: boolean;
@@ -19,7 +15,7 @@ interface PointerProps {
 
 const Pointer = React.forwardRef<HTMLDivElement, PointerProps>(
 	({ visible, setVisibility, currentLevel }, ref) => {
-		const levelsManager: GameLevelsManager = React.useContext(GameSettingsContext);
+		const currentSettings: GameSettings = React.useContext(GameSettingsContext);
 		const [pointerCenter, setPointerCenter] = React.useState<Point>({ x: 0, y: 0 });
 
 		const clickAction = (e: React.MouseEvent): void => {
@@ -39,7 +35,7 @@ const Pointer = React.forwardRef<HTMLDivElement, PointerProps>(
 				radius: POINTER_RADIUS,
 			};
 			if (isCircleCollision(targetCirlce, pointerCircle)) {
-				levelsManager.removeCharacterFromLevel(currentLevel, character.name);
+				currentSettings.levelsManager?.removeCharacterFromLevel(currentLevel, character.name);
 				alert(`Congrats. You found ${character.name}`);
 			} else {
 				alert(`That is not ${character.name}`);
@@ -65,7 +61,7 @@ const Pointer = React.forwardRef<HTMLDivElement, PointerProps>(
 				</div>
 
 				<ul className='list-group' style={{ visibility: visible ? 'visible' : 'hidden' }}>
-					{levelsManager.getLevel(currentLevel).targets.map((t, i) => (
+					{currentSettings.levelsManager?.getLevel(currentLevel).targets.map((t, i) => (
 						<li
 							key={i}
 							className='list-group-item'

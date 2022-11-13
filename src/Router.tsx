@@ -6,13 +6,14 @@ import Home from './components/Home';
 import Leaderboard from './components/Leaderboard';
 import Game from './components/Game';
 
-import { GameSettingsContext, useLevels } from './utils';
+import { GameSettingsContext, useLevels, useTimer } from './utils';
 
 const Router = () => {
 	const levelsManager = useLevels();
+	const timer = useTimer();
 	return (
 		<div className='container-fluid p-0'>
-			<GameSettingsContext.Provider value={levelsManager}>
+			<GameSettingsContext.Provider value={{ levelsManager, timer }}>
 				<BrowserRouter>
 					<Routes>
 						<Route path='/' element={<Frame />}>
