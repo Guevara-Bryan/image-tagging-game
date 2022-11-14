@@ -4,7 +4,7 @@ import snowMap from './images/snow-map.jpeg';
 
 import { Level, Timer, GameLevelsManager, GameSettings, Time } from './types';
 
-const GameSettingsContext = React.createContext<GameSettings>({});
+const GameSettingsContext = React.createContext<GameSettings>({} as GameSettings);
 
 const POINTER_RADIUS = 30; // pixels
 
@@ -100,12 +100,13 @@ const useLevels = (): GameLevelsManager => {
 	const removeCharacterFromLevel = (levelId: number, charName: string): void => {
 		setLevels((prev) => {
 			return prev.map((lvl) => {
+				const newTargets = lvl.targets.filter((target) => target.name !== charName);
 				if (lvl.id === levelId) {
 					return {
 						id: lvl.id,
 						name: lvl.name,
 						imageSrc: lvl.imageSrc,
-						targets: lvl.targets.filter((target) => target.name !== charName),
+						targets: newTargets,
 					};
 				}
 				return lvl;
@@ -155,11 +156,16 @@ const useTimer = (): Timer => {
 		setSeconds(0);
 	};
 
+	const getTimeInSeconds = () => {
+		return seconds;
+	};
+
 	return {
 		...secondsToTime(seconds),
 		startTimer,
 		stopTimer,
 		resetTimer,
+		getTimeInSeconds,
 	};
 };
 

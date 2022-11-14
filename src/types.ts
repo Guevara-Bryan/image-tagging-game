@@ -27,6 +27,7 @@ interface Timer {
 	startTimer: () => void;
 	stopTimer: () => void;
 	resetTimer: () => void;
+	getTimeInSeconds: () => number;
 }
 
 interface GameLevelsManager {
@@ -36,8 +37,8 @@ interface GameLevelsManager {
 }
 
 interface GameSettings {
-	levelsManager?: GameLevelsManager;
-	timer?: Timer;
+	levelsManager: GameLevelsManager;
+	timer: Timer;
 }
 
 interface Time {
@@ -49,6 +50,7 @@ interface Time {
 interface playerEntry {
 	id: string;
 	name: string;
+	level: number;
 	time: number;
 }
 

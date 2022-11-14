@@ -1,5 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import pointer from '../images/crosshair.png';
+
+import { collection, addDoc } from 'firebase/firestore';
+
+import { dataBase } from '../firebase';
 
 import { GameSettings, Point, Circle, Target } from '../types';
 
@@ -17,14 +22,32 @@ const Pointer = React.forwardRef<HTMLDivElement, PointerProps>(
 	({ visible, setVisibility, currentLevel }, ref) => {
 		const currentSettings: GameSettings = React.useContext(GameSettingsContext);
 		const [pointerCenter, setPointerCenter] = React.useState<Point>({ x: 0, y: 0 });
+		const navigate = useNavigate();
 
+		const addPlayerEntry = async (name: string, level: number, time: number) => {
+			try {
+				const docRef = await addDoc(collection(dataBase, 'leaderboard'), { name, level, time });
+				console.log(`Entry written with id: ${docRef.id}`);
+			} catch (error) {
+				console.log('Error adding player entry: ', error);
+			}
+		};
+
+		const endLevel = () => {
+			const name = prompt('Congrats, you found them all. Enter your name');
+			if (name) {
+				addPlayerEntry(name, currentLevel, currentSettings.timer.getTimeInSeconds());
+				navigate('/leaderboard');
+			} else {
+				navigate('/');
+			}
+		};
 		const clickAction = (e: React.MouseEvent): void => {
 			setVisibility((prev) => !prev);
 			setPointerCenter({ x: e.pageX, y: e.pageY });
 		};
 
-		const characterClickAction = (character: Target): void => {
-			console.log(pointerCenter);
+		const characterClickAction = async (character: Target): Promise<void> => {
 			setVisibility(false);
 			const targetCirlce: Circle = {
 				center: character.coordinates,
@@ -35,8 +58,11 @@ const Pointer = React.forwardRef<HTMLDivElement, PointerProps>(
 				radius: POINTER_RADIUS,
 			};
 			if (isCircleCollision(targetCirlce, pointerCircle)) {
-				currentSettings.levelsManager?.removeCharacterFromLevel(currentLevel, character.name);
-				alert(`Congrats. You found ${character.name}`);
+				alert(`Congrats, you found: ${character.name}`);
+				if (currentSettings.levelsManager.getLevel(currentLevel).targets.length === 1) {
+					endLevel();
+				}
+				currentSettings.levelsManager.removeCharacterFromLevel(currentLevel, character.name);
 			} else {
 				alert(`That is not ${character.name}`);
 			}
@@ -61,7 +87,7 @@ const Pointer = React.forwardRef<HTMLDivElement, PointerProps>(
 				</div>
 
 				<ul className='list-group' style={{ visibility: visible ? 'visible' : 'hidden' }}>
-					{currentSettings.levelsManager?.getLevel(currentLevel).targets.map((t, i) => (
+					{currentSettings.levelsManager.getLevel(currentLevel).targets.map((t, i) => (
 						<li
 							key={i}
 							className='list-group-item'
