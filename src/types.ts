@@ -34,6 +34,7 @@ interface Timer {
 interface GameLevelsManager {
 	getLevel: (levelId: number) => Level | undefined;
 	getAllLevels: () => Level[];
+	resetLevels: () => void;
 	removeCharacterFromLevel: (levelId: number, charName: string) => void;
 }
 

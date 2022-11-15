@@ -5,6 +5,9 @@ import { GameSettingsContext } from '../utils';
 
 const NavBar = () => {
 	const currentSettings = React.useContext<GameSettings>(GameSettingsContext);
+	const cleanUpLevels = () => {
+		currentSettings.timer?.stopTimer();
+	};
 
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-dark px-lg-5 fixed-top'>
@@ -13,7 +16,7 @@ const NavBar = () => {
 					to='/'
 					className='navbar-brand'
 					onClick={() => {
-						currentSettings.timer?.stopTimer();
+						cleanUpLevels();
 					}}
 				>
 					Where's Waldo
@@ -35,7 +38,7 @@ const NavBar = () => {
 							to='/'
 							className='nav-link'
 							onClick={() => {
-								currentSettings.timer?.stopTimer();
+								cleanUpLevels();
 							}}
 						>
 							Home
@@ -44,7 +47,7 @@ const NavBar = () => {
 							to='leaderboard'
 							className='nav-link'
 							onClick={() => {
-								currentSettings.timer?.stopTimer();
+								cleanUpLevels();
 							}}
 						>
 							Leaderboard

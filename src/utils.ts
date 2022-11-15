@@ -86,8 +86,13 @@ const useLevels = (): GameLevelsManager => {
 		});
 	};
 
+	const resetLevels = () => {
+		fetchLevels();
+	};
+
 	return {
 		getLevel,
+		resetLevels,
 		getAllLevels,
 		removeCharacterFromLevel,
 	};

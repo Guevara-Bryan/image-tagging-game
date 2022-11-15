@@ -14,7 +14,13 @@ const Home = () => {
 			</div>
 			<div className='levels-container'>
 				{currentSettings.levelsManager?.getAllLevels().map((level: Level) => {
-					return <LevelView key={level.id} level={level} />;
+					return (
+						<LevelView
+							key={level.id}
+							level={level}
+							resetLevels={currentSettings.levelsManager.resetLevels}
+						/>
+					);
 				})}
 			</div>
 		</div>

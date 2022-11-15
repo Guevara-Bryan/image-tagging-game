@@ -6,12 +6,14 @@ import '../styles/LevelView.css';
 
 interface LevelViewProps {
 	level: Level;
+	resetLevels: () => void;
 }
 
-const LevelView = ({ level }: LevelViewProps) => {
+const LevelView = ({ level, resetLevels }: LevelViewProps) => {
 	const navigate = useNavigate();
 
 	const startLevel = (): void => {
+		resetLevels();
 		navigate(`/game:${level.id}`);
 	};
 
