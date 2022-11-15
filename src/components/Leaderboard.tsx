@@ -36,7 +36,7 @@ const Leaderboard = () => {
 					return (
 						<div key={player.id} className='player-entry text-bg-dark'>
 							<div>{player.name}</div>
-							<div>Level: {player.level}</div>
+							<div className='level-label'>Level: {player.level}</div>
 							<div>
 								Time:
 								{' ' +

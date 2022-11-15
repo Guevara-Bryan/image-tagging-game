@@ -14,16 +14,18 @@
 }
 
 .player-entry {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   border: 2px solid purple;
-  padding: 10px;
+  padding: 1.5%;
   border-radius: 10px;
 
   font-size: 16pt;
 }
+
 
 .leaderboard-container {
   background-color: rgb(255, 221, 0);
@@ -31,4 +33,24 @@
   min-height: 94vh;
   flex-direction: column;
   align-items: center;
+}
+
+.level-label {
+  display: block;
+}
+
+@media (max-width: 992px) {
+  .level-label {
+    display: none;
+  }
+
+  .player-entry {
+    grid-template-columns: 1fr 1fr;
+
+    font-size: 13pt;
+  }
+
+  .players-container {
+    width: 80%;
+  }
 }

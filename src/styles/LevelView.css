@@ -42,11 +42,12 @@
 }
 
 .home-container {
-  background: rgb(255,108,108);
-  background: linear-gradient(0deg, rgba(255,108,108,1) 0%, rgba(255,240,129,1) 100%);
+  min-height: 100vh;
+  background: rgb(255, 108, 108);
+  background: linear-gradient(0deg, rgba(255, 108, 108, 1) 0%, rgba(255, 240, 129, 1) 100%);
 }
 
-@media (max-width: 750px) {
+@media (max-width: 768px) {
   .levels-container {
     grid-template-columns: 1fr;
   }

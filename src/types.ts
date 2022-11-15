@@ -17,6 +17,7 @@ interface Level {
 	id: number;
 	name: string;
 	imageSrc: string;
+	thumbnail: string;
 	targets: Target[];
 }
 
@@ -31,7 +32,7 @@ interface Timer {
 }
 
 interface GameLevelsManager {
-	getLevel: (levelId: number) => Level;
+	getLevel: (levelId: number) => Level | undefined;
 	getAllLevels: () => Level[];
 	removeCharacterFromLevel: (levelId: number, charName: string) => void;
 }

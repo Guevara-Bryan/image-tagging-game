@@ -18,7 +18,7 @@ const LevelView = ({ level }: LevelViewProps) => {
 	return (
 		<div className='level-view'>
 			<div className='level__image-container'>
-				<img className='level-image' src={level.imageSrc} alt='' />
+				<img className='level-image' src={level.thumbnail} alt='' />
 			</div>
 			<div className='level-name'>{level.name}</div>
 			<button type='button' className='btn btn-dark py-2' onClick={startLevel}>

@@ -49,6 +49,7 @@ const Pointer = React.forwardRef<HTMLDivElement, PointerProps>(
 
 		const characterClickAction = async (character: Target): Promise<void> => {
 			setVisibility(false);
+			console.log(pointerCenter);
 			const targetCirlce: Circle = {
 				center: character.coordinates,
 				radius: POINTER_RADIUS,
@@ -59,7 +60,7 @@ const Pointer = React.forwardRef<HTMLDivElement, PointerProps>(
 			};
 			if (isCircleCollision(targetCirlce, pointerCircle)) {
 				alert(`Congrats, you found: ${character.name}`);
-				if (currentSettings.levelsManager.getLevel(currentLevel).targets.length === 1) {
+				if (currentSettings.levelsManager.getLevel(currentLevel)?.targets.length === 1) {
 					endLevel();
 				}
 				currentSettings.levelsManager.removeCharacterFromLevel(currentLevel, character.name);
@@ -87,7 +88,7 @@ const Pointer = React.forwardRef<HTMLDivElement, PointerProps>(
 				</div>
 
 				<ul className='list-group' style={{ visibility: visible ? 'visible' : 'hidden' }}>
-					{currentSettings.levelsManager.getLevel(currentLevel).targets.map((t, i) => (
+					{currentSettings.levelsManager.getLevel(currentLevel)?.targets.map((t, i) => (
 						<li
 							key={i}
 							className='list-group-item'

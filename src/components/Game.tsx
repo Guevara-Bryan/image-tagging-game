@@ -66,7 +66,7 @@ const Game = () => {
 					setVisibility={setShowCharacterList}
 					currentLevel={levelId}
 				/>
-				<img src={currentSettings.levelsManager?.getLevel(levelId).imageSrc} alt='' />
+				<img src={currentSettings.levelsManager?.getLevel(levelId)?.imageSrc} alt='' />
 			</div>
 		</div>
 	);

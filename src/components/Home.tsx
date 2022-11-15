@@ -1,5 +1,5 @@
 import React from 'react';
-import { Level, GameSettings} from '../types';
+import { Level, GameSettings } from '../types';
 import { GameSettingsContext } from '../utils';
 
 import LevelView from './LevelView';
