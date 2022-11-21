@@ -14,7 +14,7 @@ The main purpose of this application was to learn and practice using react and o
 
 For the front-end I used React.js with the TypeScript template.This was my first time using TypeScript, but I have experience working with JavaScript and with typed languages such as C++ and Java, so learning TypeScript was not too dificult. I also used BootStrap to help me do the styling quicker.
 
-As for the backend, I used a Backend As A Service (BASS). Specifically I used Firebase's Firestore, Storage, and Hosting services.
+As for the backend, I used a Backend As A Service (BAAS). Specifically I used Firebase's Firestore, Storage, and Hosting services.
 
 ## What I learned
 
